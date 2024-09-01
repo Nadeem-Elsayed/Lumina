@@ -8,8 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.image.ImageView;
 
 
-/**
- * @author Rose
+/*
  *
  */
 

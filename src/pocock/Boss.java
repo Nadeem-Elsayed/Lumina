@@ -4,9 +4,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.ImageView;
 
-/**
- * @author Rosemarie
- **/
 public class Boss extends Sprite {
 
 	private final double TIME_BETWEEN_FRAMES = 0.2;

@@ -187,7 +187,6 @@ public abstract class Sprite extends Group{
 	/**
 	 * To be implemented by child classes
 	 * Update the sprite given the amount of elapsed time.
-	 * I wished we used this, sounds kinda cool
 	 * 
 	 * @param time
 	 */

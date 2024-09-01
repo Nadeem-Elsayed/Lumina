@@ -7,11 +7,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.ImageView;
 
-
-/**
- * @author mark
- * most of the code is by Rosemarie I think
- */
 public class Player extends Sprite {
 	private final double TIME_BETWEEN_RUNNING_FRAMES = 0.08;
 	private final double TIME_BETWEEN_IDLE_FRAMES = 0.25;

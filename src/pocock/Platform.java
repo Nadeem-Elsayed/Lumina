@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 
 /**
- * @author mark
  *
  */
 public class Platform extends Sprite {
@@ -22,10 +21,10 @@ public class Platform extends Sprite {
 
 	@Override
 	/*
-	 * basic platforms don't move ... might do some animating here though?
+	 * 
 	 */
 	public void update(double time) {
-		
+
 	}
 
 }

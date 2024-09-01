@@ -4,10 +4,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
-/**
- * @author Rose
- *
- */
 public class Brazier extends Sprite {
 	private boolean isLit = false;
 

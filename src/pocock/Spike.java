@@ -6,8 +6,7 @@ package pocock;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 
-/**
- * @author mark
+/*
  *
  */
 public class Spike extends Sprite {

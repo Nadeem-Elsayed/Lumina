@@ -1,9 +1,5 @@
 package pocock;
 
-/**
- * @author mark
- *
- */
 public interface GameTick {
 	
 	/**

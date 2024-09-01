@@ -3,9 +3,6 @@ package pocock;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.ImageView;
 
-/** 
- * @author Mark
- */
 public class Corpse extends Sprite {
 
 	//Create a new corpse object

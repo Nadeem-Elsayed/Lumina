@@ -47,7 +47,6 @@ public class FinalLumina extends Application {
 	//where all the keyboard input is stored
 	private static HashSet<KeyCode> keyboard = new HashSet<KeyCode>();
 
-
 	private Group ui = new Group();//for lights only
 	private Group graphics = new Group();//for sprites and other doodads
 	private Group DeathScreen = DeathScreen();//R.I.P
@@ -73,13 +72,13 @@ public class FinalLumina extends Application {
 	//timer for the application
 	GameTimer timer = new GameTimer (elapsedTime -> gameUpdate(elapsedTime));
 
-	//ADDITION BY MARK deathCount elements
+	//deathCount elements
 	private int totalDeathCount = 0;
 	private int deathCount = 0;
 	Label skullLabel = new Label(String.valueOf(deathCount));
 	ImageView skull = new ImageView(Resources.SKULL);
 
-	//ADDITION by Mark: load image of Skippy corpse
+	//load image of Skippy corpse
 	private Sprite [] deadGuys = new Sprite[10];
 
 	//add ui to the root if you want to see the light stuff, remove if you dont wanna see cause you're a loser
@@ -118,7 +117,7 @@ public class FinalLumina extends Application {
 	ImageView background2 = new ImageView(Resources.BACKGROUND2);
 	ImageView background3 = new ImageView(Resources.BACKGROUND3);
 	ImageView background4 = new ImageView(Resources.BACKGROUND4);
-	
+
 	//the instructions on level 1
 	Label instructJump;
 	Label instructAvoid;
@@ -132,7 +131,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by a bunch of people I think, except Nadeem, Nadeem sucks
 	 *Returns a group
 	 *this gives us the title screen 
 	 */
@@ -162,7 +160,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by Ivan
 	 * This is the code for the death screen
 	 */
 	public Group DeathScreen() {
@@ -207,7 +204,6 @@ public class FinalLumina extends Application {
 	}
 
 	/**
-	 * Mark did pretty much everything in this method
 	 * Events to occur when the player dies
 	 * No more playing for you
 	 */
@@ -224,6 +220,7 @@ public class FinalLumina extends Application {
 
 		//no more playing for you
 		timer.stop();
+
 		//R.I.P, go to the death screen
 		scene.setRoot(DeathScreen);
 
@@ -236,7 +233,7 @@ public class FinalLumina extends Application {
 	 */
 	public void respawn() {
 		graphics.getChildren().clear();
-		
+
 		//this adds in the graphics for level one
 		if (currentLevel == 1) {
 			graphics.getChildren().addAll(background1, instructions, player, loadLevel(currentLevel));
@@ -253,12 +250,12 @@ public class FinalLumina extends Application {
 		if (currentLevel ==4) {
 			background4.relocate(background4.getX()-192, background4.getY());
 			graphics.getChildren().addAll(background4, player, loadLevel(currentLevel));
-			
+
 			//boss starts a little bit after the spawn point, when you respawn you are safe
 			bossFight = false;
 		}
-		
-		//ADDITION by Mark: add the dead guys to the graphics
+
+		//add the dead guys to the graphics
 		for (int i = 0; i < deathCount; i++) {
 			if (i == 10) break;
 			graphics.getChildren().add(deadGuys[i]);
@@ -271,7 +268,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * Nadeem and Rosemarie
 	 * what the timer repeats
 	 */
 	private void gameUpdate(double elapsedTime) {
@@ -285,12 +281,11 @@ public class FinalLumina extends Application {
 		endOfLevelCheck();
 		//Check if Brazier is close to player and remove darkness
 
-
-		//Random chance to make a rat noise, should've changed media to sound effect maybe
+		//Random chance to make a rat noise
 		if (Math.random()*5000<2) {
 			Resources.RAT_BAT.sound().setCycleCount(Integer.MAX_VALUE);
 			Resources.RAT_BAT.sound().play();
-			
+
 			//end media, I don't want the effect to keep playing
 			Resources.RAT_BAT.sound().setOnEndOfMedia(new Runnable() {
 				public void run() {
@@ -316,8 +311,7 @@ public class FinalLumina extends Application {
 			if (player.intersects(braziers.get(i))) {
 				brazierLight(i, brazier);
 			}
-			
-			//ADDITION by Nadeem:
+
 			//for light changing
 			if (brazier.isLit()==true) {
 				if (Math.abs(brazier.getX()-player.getX())<=960) {
@@ -327,8 +321,6 @@ public class FinalLumina extends Application {
 			}
 			braziers.get(i).update(elapsedTime);
 		}
-		//I don't know who did this, maybe Rosemarie or Ivan, I think RoseMarie
-		//ADDITION Nadeem:
 		//closer you get to the boss, the less you see
 		if (bossFight) {
 			dark.setOpacity((960-(player.getX()-currentBoss.getX()))/960);
@@ -342,29 +334,29 @@ public class FinalLumina extends Application {
 		}
 		else {
 			//update the scrolling transform for game length
-	        if (player.getX() < 480) {
-	            scrollLevel.setX(0);
-	        }
-	        else if (player.getX() < levelWidth - 480) {
-	            scrollLevel.setX(480 - player.getX());
-	        }
-	        else {
-	            scrollLevel.setX(960 - levelWidth);
-	        }
+			if (player.getX() < 480) {
+				scrollLevel.setX(0);
+			}
+			else if (player.getX() < levelWidth - 480) {
+				scrollLevel.setX(480 - player.getX());
+			}
+			else {
+				scrollLevel.setX(960 - levelWidth);
+			}
 		}
-		
-	    //update the scrolling transform for game width
-        if (player.getY() < 270) {
-            scrollLevel.setY(0);
-        }
-        else if (player.getY() < levelHeight - 270) {
-            scrollLevel.setY(270 - player.getY());
-        }
-        else {
-            scrollLevel.setY(540 - levelHeight);
-        }
 
-		//ADDITION: By Rosemarie: Fix the animated cursor speed
+		//update the scrolling transform for game width
+		if (player.getY() < 270) {
+			scrollLevel.setY(0);
+		}
+		else if (player.getY() < levelHeight - 270) {
+			scrollLevel.setY(270 - player.getY());
+		}
+		else {
+			scrollLevel.setY(540 - levelHeight);
+		}
+
+		//Fix the animated cursor speed
 		if (nextFrameTime < 0) {
 			currFrame++;
 			if(currFrame >= Resources.CURSOR.length) currFrame = 0;
@@ -378,7 +370,6 @@ public class FinalLumina extends Application {
 	}
 
 	/**
-	 * By Rosemarie
 	 * Checks the current key map to see if a key is pressed
 	 * @param code for the key to check
 	 * @return true if the key is currently recorded as pressed
@@ -388,7 +379,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by Nadeem
 	 * detects jump input
 	 */
 	public void mouseClick(MouseEvent m) {
@@ -456,7 +446,7 @@ public class FinalLumina extends Application {
 		//set Graphics and lights for level
 		ui.getChildren().addAll(dark, dim);
 		ui.getTransforms().add(mouseLocation);
- 
+
 		//inserts the the text found in level one
 		instructJump = new Label ("Move with mouse, click to jump");
 		instructJump.setFont(Font.loadFont("file:images/Deutsch.ttf", 50));
@@ -489,6 +479,7 @@ public class FinalLumina extends Application {
 		scene.setOnMouseMoved(mouseEvent -> mouseLocation(mouseEvent));
 		scene.setOnMouseDragged(mouseEvent -> mouseLocation(mouseEvent));
 		scene.setOnMousePressed(mouseEvent -> mouseClick(mouseEvent));
+
 		//timer
 		scene.setRoot(StartScreen);
 
@@ -497,7 +488,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * Nadeem
 	 * retrieves location of mouse
 	 */
 	public void mouseLocation(MouseEvent m) {
@@ -506,7 +496,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by Nadeem
 	 * returns x location of mouse
 	 */
 	public static double getMouseX() {
@@ -514,7 +503,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by Nadeem
 	 * returns y location of mouse
 	 */
 	public static double getMouseY() {
@@ -522,7 +510,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by Nadeem
 	 * checks for collision with floor
 	 */
 	public void floorCheck() {
@@ -562,7 +549,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * ADDITION BY IVAN: 
 	 * Checks if the player is out of bounds
 	 * The player dies when they fall through the floor
 	 */
@@ -583,7 +569,6 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by Nadeem
 	 * checks from which direction collision happens
 	 */
 	public int collisionFrom(Sprite collider) {
@@ -647,61 +632,58 @@ public class FinalLumina extends Application {
 	}
 
 	/*
-	 * by Nadeem and Rosemarie
-	 * boss editions and last level are by Rosemarie
 	 * Check for levels and boss events
 	 */
 	public void endOfLevelCheck() {
-        if (currentLevel ==1 && player.x.get()>=levelWidth-90) {
-            graphics.getChildren().clear();
-            graphics.getChildren().addAll(background2, loadLevel(2), player);
-            player.relocate(100, 400);
-            currentLevel++;
-            Resources.BACKGROUND_MUSIC.sound().stop();
-            Resources.CALM_SONG.sound().setCycleCount(Integer.MAX_VALUE);
-            Resources.CALM_SONG.sound().setAutoPlay(true);
-            Resources.CALM_SONG.sound().play();
-            
-            //clear dead guys
-            deathCount = 0;
-            clearDeadPeople();
+		if (currentLevel ==1 && player.x.get()>=levelWidth-90) {
+			graphics.getChildren().clear();
+			graphics.getChildren().addAll(background2, loadLevel(2), player);
+			player.relocate(100, 400);
+			currentLevel++;
+			Resources.BACKGROUND_MUSIC.sound().stop();
+			Resources.CALM_SONG.sound().setCycleCount(Integer.MAX_VALUE);
+			Resources.CALM_SONG.sound().setAutoPlay(true);
+			Resources.CALM_SONG.sound().play();
 
-        } else if (currentLevel ==2 && player.x.get()>=levelWidth-90) {
-            graphics.getChildren().clear();
-       //     background3.relocate(background3.getX()-192, background3.getY());
-            graphics.getChildren().addAll(background3, loadLevel(3), player);
-            player.relocate(100, 400);
-            currentLevel++;
-            deathCount = 0;
-            clearDeadPeople();
-            
-        } else if (currentLevel == 3 && player.x.get()>=levelWidth-90) {
-            graphics.getChildren().clear();
-         //   background4.relocate(background4.getX()-192, background4.getY());
-            graphics.getChildren().addAll(background4, loadLevel(4), player);
-            player.relocate(100, 400);
-            currentLevel++;
-            deathCount = 0;
-            clearDeadPeople();
-        }
-        else if (currentLevel == 4 && player.x.get()>611 && !bossFight) {
-            //Initiate Boss Fight
-            bossFight = true;
-            currentBoss.relocate(0, 0);
-        } 
-        else if (currentLevel == 4 && player.x.get()>=14496) {
-            graphics.getChildren().clear();
-            timer.stop();
-            player.relocate(100, 400);
-            currentLevel=1;
-            scene.setRoot(StartScreen);
-            deathCount = 0;
-            clearDeadPeople();
-        }
+			//clear dead guys
+			deathCount = 0;
+			clearDeadPeople();
+
+		} else if (currentLevel ==2 && player.x.get()>=levelWidth-90) {
+			graphics.getChildren().clear();
+			//     background3.relocate(background3.getX()-192, background3.getY());
+			graphics.getChildren().addAll(background3, loadLevel(3), player);
+			player.relocate(100, 400);
+			currentLevel++;
+			deathCount = 0;
+			clearDeadPeople();
+
+		} else if (currentLevel == 3 && player.x.get()>=levelWidth-90) {
+			graphics.getChildren().clear();
+			//   background4.relocate(background4.getX()-192, background4.getY());
+			graphics.getChildren().addAll(background4, loadLevel(4), player);
+			player.relocate(100, 400);
+			currentLevel++;
+			deathCount = 0;
+			clearDeadPeople();
+		}
+		else if (currentLevel == 4 && player.x.get()>611 && !bossFight) {
+			//Initiate Boss Fight
+			bossFight = true;
+			currentBoss.relocate(0, 0);
+		} 
+		else if (currentLevel == 4 && player.x.get()>=14496) {
+			graphics.getChildren().clear();
+			timer.stop();
+			player.relocate(100, 400);
+			currentLevel=1;
+			scene.setRoot(StartScreen);
+			deathCount = 0;
+			clearDeadPeople();
+		}
 	}
 
 	/*
-	 * by Nadeem
 	 * Light the braziers
 	 */
 	public void brazierLight(int i, Brazier brazier) {
@@ -720,9 +702,8 @@ public class FinalLumina extends Application {
 		spawnX = brazier.getX();
 		spawnY = brazier.getY();
 	}
-	
+
 	/*
-	 * ADDITION by Nadeem
 	 * clears the dead people from the array
 	 * this is implemented in the endOfLevelCheck
 	 */
@@ -733,8 +714,6 @@ public class FinalLumina extends Application {
 	}
 
 	/**
-	 * by Rosemarie
-	 * did not get to adding the eyes and rocks in the dark
 	 * Load a level based on level data
 	 * @param level
 	 * @return group with all level objects
